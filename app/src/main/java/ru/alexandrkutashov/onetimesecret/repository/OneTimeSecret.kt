@@ -35,4 +35,9 @@ interface OneTimeSecret {
      * from the secret key.
      */
     fun metadata(metadataRequest: MetadataRequest): Pair<MetadataResponse?, Exception?>
+
+    /**
+     * Burn a secret that has not been read yet.
+     */
+    fun burn(burnRequest: BurnRequest): Pair<BurnResponse?, Exception?>
 }

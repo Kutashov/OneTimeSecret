@@ -1,8 +1,7 @@
 package ru.alexandrkutashov.onetimesecret
 
 import com.github.kittinunf.fuel.core.FuelManager
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
+import org.junit.Assert.*
 import org.junit.BeforeClass
 import org.junit.Test
 import ru.alexandrkutashov.onetimesecret.repository.OneTimeSecret
@@ -105,5 +104,26 @@ class OneTimeSecretApiTest {
         assertNull(actualError)
 
         assertEquals(actual, expected)
+    }
+
+    @Test
+    fun testGenerateBurn() {
+        val shareRequest = ShareRequest(
+                secret = "mooooo I'm a moooose")
+
+        val (expected, expectedError) = ots.share(shareRequest)
+        assertNull(expectedError)
+
+        val (actual, actualError) = ots.burn(
+                BurnRequest(metadataKey = expected?.metadataKey)
+        )
+        assertNull(actualError)
+
+        assertEquals(actual?.state?.custId, expected?.custId)
+        assertEquals(actual?.state?.dateCreated, expected?.dateCreated)
+        assertEquals(actual?.state?.metadataKey, expected?.metadataKey)
+        assertEquals(actual?.state?.ttl, expected?.ttl)
+        assertTrue(actual?.secretShortKey?.let { expected?.secretKey?.startsWith(it) ?: false }
+                ?: false)
     }
 }

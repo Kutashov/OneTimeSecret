@@ -11,7 +11,7 @@ import ru.alexandrkutashov.onetimesecret.repository.model.GenerateResponse
  * Test for [GenerateResponse]
  *
  * @author Alexandr Kutashov
- *
+ *         on 23.02.2018
  */
 
 class GenerateResponseJsonSerializeTest {

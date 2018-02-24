@@ -60,6 +60,10 @@ class OneTimeSecretImpl : OneTimeSecret {
                     "metadata_key" to metadataRequest.metadataKey
             )).responseObject<MetadataResponse>().third.toPair()
 
+    override fun burn(burnRequest: BurnRequest): Pair<BurnResponse?, Exception?> =
+            post("v1/private/${burnRequest.metadataKey}/burn")
+                    .responseObject<BurnResponse>().third.toPair()
+
     private fun <T : Any, E : Exception> Result<T, E>.toPair(): Pair<T?, E?> = Pair(component1(), component2())
 }
 

@@ -11,7 +11,7 @@ import ru.alexandrkutashov.onetimesecret.repository.model.MetadataResponse
  * Test for [MetadataResponse]
  *
  * @author Alexandr Kutashov
- *
+ *         on 23.02.2018
  */
 
 class MetadataResponseJsonSerializeTest {
