@@ -28,17 +28,17 @@ class MainPresenter : MvpPresenter<MainView>(), KoinComponent {
         super.onFirstViewAttach()
     }
 
-    fun shareSecret(secret: String, passphrase: String) = launch(executors.uiContext) {
+    fun shareSecret(secret: String, passphrase: String? = null) = launch(executors.uiContext) {
 
         if (secret.isEmpty()) {
-
+            viewState.onEmptySecret()
         } else {
             viewState.showLoading(true)
 
             val result = interactor.shareSecret(secret, passphrase)
             when(result) {
-                is Result.Success -> ""
-                is Result.Error -> result.exception
+                is Result.Success -> viewState.onShareSuccess()
+                is Result.Error -> viewState.onShareError(result.exception.message)
             }
             viewState.showLoading(false)
         }

@@ -19,7 +19,7 @@ class MainInteractor : KoinComponent {
     private val executors by inject<Executors>()
     private val api by inject<OneTimeSecret>()
 
-    suspend fun shareSecret(secret: String, passphrase: String): Result<ShareResponse> =
+    suspend fun shareSecret(secret: String, passphrase: String? = null): Result<ShareResponse> =
             async(executors.networkContext) {
                 api.share(ShareRequest(
                         secret = secret,

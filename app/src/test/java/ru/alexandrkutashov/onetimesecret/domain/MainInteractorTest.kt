@@ -28,7 +28,6 @@ import ru.alexandrkutashov.onetimesecret.ext.Result
 class MainInteractorTest : KoinTest {
 
     private val api by inject<OneTimeSecret>()
-
     private lateinit var interactor: MainInteractor
 
     @Before
@@ -41,14 +40,17 @@ class MainInteractorTest : KoinTest {
     fun share() = runBlocking {
         val secret = "someSecret"
         val passphrase = "somePassphrase"
-        val shareResponse = Result.Success(ShareResponse())
+        val expected = Result.Success(ShareResponse(
+                metadataKey = "someMetadataKey",
+                metadataTtl = 12345
+        ))
 
-        every { api.share(any()) }.returns(shareResponse)
+        every { api.share(any()) } answers { expected }
 
-        val result = interactor.shareSecret(secret = secret, passphrase = passphrase)
+        val actual = interactor.shareSecret(secret = secret, passphrase = passphrase)
 
         verify { api.share(ShareRequest(secret = secret, passphrase = passphrase)) }
-        assertEquals(result, shareResponse)
+        assertEquals(actual, expected)
     }
 
     @After

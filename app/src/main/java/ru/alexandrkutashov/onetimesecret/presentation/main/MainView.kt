@@ -13,5 +13,26 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface MainView: MvpView {
 
+    /**
+     * Show loading animation
+     * @param flag if true than animation will appear
+     */
     fun showLoading(flag: Boolean)
+
+    /**
+     * Secret was successfully shared
+     */
+    fun onShareSuccess()
+
+    /**
+     * Some error happened during error
+     * @param message some info about error
+     */
+    fun onShareError(message: String?)
+
+    /**
+     * Shared secret was empty
+     */
+    fun onEmptySecret()
+
 }
