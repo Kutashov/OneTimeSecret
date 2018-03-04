@@ -1,4 +1,4 @@
-package ru.alexandrkutashov.onetimesecret.repository.model
+package ru.alexandrkutashov.onetimesecret.data.repository.model
 
 import com.squareup.moshi.Json
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.alexandrkutashov.onetimesecret.MainActivityFragment"
+    tools:context="ru.alexandrkutashov.onetimesecret.presentation.main.MainFragment"
     tools:showIn="@layout/activity_main">
 
     <TextView
