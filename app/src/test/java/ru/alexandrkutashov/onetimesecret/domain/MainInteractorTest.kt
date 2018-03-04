@@ -11,10 +11,11 @@ import org.koin.standalone.StandAloneContext.closeKoin
 import org.koin.standalone.StandAloneContext.startKoin
 import org.koin.standalone.inject
 import org.koin.test.KoinTest
+import ru.alexandrkutashov.onetimesecret.TestAppModule
 import ru.alexandrkutashov.onetimesecret.data.repository.OneTimeSecret
 import ru.alexandrkutashov.onetimesecret.data.repository.model.ShareRequest
 import ru.alexandrkutashov.onetimesecret.data.repository.model.ShareResponse
-import ru.alexandrkutashov.onetimesecret.di.TestModule
+import ru.alexandrkutashov.onetimesecret.data.TestDataModule
 import ru.alexandrkutashov.onetimesecret.ext.Result
 
 /**
@@ -32,7 +33,7 @@ class MainInteractorTest : KoinTest {
 
     @Before
     fun setUp() {
-        startKoin(listOf(TestModule()))
+        startKoin(listOf(TestAppModule(), TestDataModule()))
         interactor = MainInteractor()
     }
 

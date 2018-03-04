@@ -1,11 +1,10 @@
-package ru.alexandrkutashov.onetimesecret.data.model
+package ru.alexandrkutashov.onetimesecret.data.repository.model
 
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
-import ru.alexandrkutashov.onetimesecret.data.repository.model.MetadataResponse
 
 /**
  * Test for [MetadataResponse]

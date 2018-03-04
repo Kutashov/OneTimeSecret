@@ -1,11 +1,9 @@
-package ru.alexandrkutashov.onetimesecret.data
+package ru.alexandrkutashov.onetimesecret.data.repository
 
 import com.github.kittinunf.fuel.core.FuelManager
 import org.junit.Assert.*
 import org.junit.BeforeClass
 import org.junit.Test
-import ru.alexandrkutashov.onetimesecret.data.repository.OneTimeSecret
-import ru.alexandrkutashov.onetimesecret.data.repository.OneTimeSecretImpl
 import ru.alexandrkutashov.onetimesecret.data.repository.model.*
 import ru.alexandrkutashov.onetimesecret.ext.data
 import java.util.concurrent.Executor

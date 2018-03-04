@@ -1,29 +1,29 @@
-package ru.alexandrkutashov.onetimesecret.data.model
+package ru.alexandrkutashov.onetimesecret.data.repository.model
 
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
-import ru.alexandrkutashov.onetimesecret.data.repository.model.ShareResponse
 
 /**
- * Test for [ShareResponse]
+ * Test for [GenerateResponse]
  *
  * @author Alexandr Kutashov
  *         on 23.02.2018
  */
 
-class ShareResponseJsonSerializeTest {
+class GenerateResponseJsonSerializeTest {
 
-    private val json = """{"custid":"anon","metadata_key":"metadata_key","secret_key":"secret_key","metadata_ttl":1209600,"secret_ttl":1209600,"ttl":1209600,"state":"new","created":1234567890,"updated":1234567890,"passphrase_required":true}"""
+    private val json = """{"custid":"anon","value":"someValue","metadata_key":"metadata_key","secret_key":"secret_key","metadata_ttl":1209600,"secret_ttl":1209600,"ttl":1209600,"state":"new","created":1234567890,"updated":1234567890,"passphrase_required":true}"""
 
     @Test
     fun serialize() {
         val actual = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-                .adapter(ShareResponse::class.java)
-                .toJson(ShareResponse(
+                .adapter(GenerateResponse::class.java)
+                .toJson(GenerateResponse(
                         custId = "anon",
+                        value = "someValue",
                         metadataKey = "metadata_key",
                         secretKey = "secret_key",
                         ttl = 1209600,
@@ -43,10 +43,11 @@ class ShareResponseJsonSerializeTest {
     @Test
     fun deserialize() {
         val actual = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-                .adapter(ShareResponse::class.java).fromJson(json)
+                .adapter(GenerateResponse::class.java).fromJson(json)
 
-        val expected = ShareResponse(
+        val expected = GenerateResponse(
                 custId = "anon",
+                value = "someValue",
                 metadataKey = "metadata_key",
                 secretKey = "secret_key",
                 ttl = 1209600,

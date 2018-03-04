@@ -1,30 +1,28 @@
-package ru.alexandrkutashov.onetimesecret.data.model
+package ru.alexandrkutashov.onetimesecret.data.repository.model
 
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
-import ru.alexandrkutashov.onetimesecret.data.repository.model.GenerateResponse
 
 /**
- * Test for [GenerateResponse]
+ * Test for [ShareResponse]
  *
  * @author Alexandr Kutashov
  *         on 23.02.2018
  */
 
-class GenerateResponseJsonSerializeTest {
+class ShareResponseJsonSerializeTest {
 
-    private val json = """{"custid":"anon","value":"someValue","metadata_key":"metadata_key","secret_key":"secret_key","metadata_ttl":1209600,"secret_ttl":1209600,"ttl":1209600,"state":"new","created":1234567890,"updated":1234567890,"passphrase_required":true}"""
+    private val json = """{"custid":"anon","metadata_key":"metadata_key","secret_key":"secret_key","metadata_ttl":1209600,"secret_ttl":1209600,"ttl":1209600,"state":"new","created":1234567890,"updated":1234567890,"passphrase_required":true}"""
 
     @Test
     fun serialize() {
         val actual = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-                .adapter(GenerateResponse::class.java)
-                .toJson(GenerateResponse(
+                .adapter(ShareResponse::class.java)
+                .toJson(ShareResponse(
                         custId = "anon",
-                        value = "someValue",
                         metadataKey = "metadata_key",
                         secretKey = "secret_key",
                         ttl = 1209600,
@@ -44,11 +42,10 @@ class GenerateResponseJsonSerializeTest {
     @Test
     fun deserialize() {
         val actual = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-                .adapter(GenerateResponse::class.java).fromJson(json)
+                .adapter(ShareResponse::class.java).fromJson(json)
 
-        val expected = GenerateResponse(
+        val expected = ShareResponse(
                 custId = "anon",
-                value = "someValue",
                 metadataKey = "metadata_key",
                 secretKey = "secret_key",
                 ttl = 1209600,

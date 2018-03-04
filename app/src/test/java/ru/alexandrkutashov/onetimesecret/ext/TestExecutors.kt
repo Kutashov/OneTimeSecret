@@ -1,7 +1,6 @@
-package ru.alexandrkutashov.onetimesecret.di
+package ru.alexandrkutashov.onetimesecret.ext
 
 import kotlinx.coroutines.experimental.Unconfined
-import ru.alexandrkutashov.onetimesecret.ext.Executors
 import kotlin.coroutines.experimental.CoroutineContext
 
 /**
