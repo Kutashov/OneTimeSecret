@@ -2,6 +2,7 @@ package ru.alexandrkutashov.onetimesecret.presentation.main
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
+import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 /**
@@ -10,13 +11,14 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
  * on 25.02.2018
  */
 
-@StateStrategyType(AddToEndSingleStrategy::class)
+@StateStrategyType(OneExecutionStateStrategy::class)
 interface MainView: MvpView {
 
     /**
      * Show loading animation
      * @param flag if true than animation will appear
      */
+    @StateStrategyType(AddToEndSingleStrategy::class)
     fun showLoading(flag: Boolean)
 
     /**
