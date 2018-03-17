@@ -41,6 +41,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            window.setBackgroundDrawable(null)
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         navigatorHolder.setNavigator(navigator)

@@ -6,6 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/ic_logo</item>
+        <item name="android:buttonStyle">@style/AppTheme.Button</item>
+    </style>
+
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="android:textColor">@color/background</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
