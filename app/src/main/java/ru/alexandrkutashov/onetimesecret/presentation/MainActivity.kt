@@ -1,13 +1,24 @@
 package ru.alexandrkutashov.onetimesecret.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.releaseContext
 import ru.alexandrkutashov.onetimesecret.R
+import ru.alexandrkutashov.onetimesecret.ext.toast
+import ru.alexandrkutashov.onetimesecret.presentation.MainModule.Companion.MAIN
+import ru.alexandrkutashov.onetimesecret.presentation.share.ShareFragment
+import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.Router
+import ru.terrakok.cicerone.android.SupportFragmentNavigator
+import ru.terrakok.cicerone.commands.*
 
 /**
  * @author Alexandr Kutashov
@@ -15,6 +26,9 @@ import ru.alexandrkutashov.onetimesecret.R
  */
 
 class MainActivity : AppCompatActivity() {
+
+    private val navigatorHolder by inject<NavigatorHolder>()
+    private val router by inject<Router>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,19 +41,59 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        navigatorHolder.setNavigator(navigator)
+        router.newRootScreen(ShareFragment.screenKey)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        navigatorHolder.removeNavigator()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        releaseContext(MAIN)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private var navigator = object : SupportFragmentNavigator(supportFragmentManager,
+            R.id.fragment) {
+        override fun createFragment(screenKey: String?, data: Any?): Fragment = when (screenKey) {
+            LoadingFragment.screenKey -> LoadingFragment.newInstance()
+            ShareFragment.screenKey -> ShareFragment.newInstance()
+            else -> throw RuntimeException("Unknown screen key!")
+        }
+
+        override fun exit() {
+            finish()
+        }
+
+        override fun showSystemMessage(message: String?) {
+            message?.let { toast(message) }
+        }
+
+        @SuppressLint("PrivateResource")
+        override fun setupFragmentTransactionAnimation(command: Command?, currentFragment: Fragment?,
+                                                       nextFragment: Fragment?,
+                                                       fragmentTransaction: FragmentTransaction?) {
+            if (command is Forward || command is Replace) {
+                fragmentTransaction?.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out)
+            } else if (command is Back || command is BackTo) {
+                fragmentTransaction?.setCustomAnimations(R.anim.abc_fade_out, R.anim.abc_fade_in)
+            }
         }
     }
 }

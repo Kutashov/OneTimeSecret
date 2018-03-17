@@ -6,4 +6,6 @@
     <string name="empty_secret">Something is better than nothing!</string>
     <string name="link_copied">Link has been copied to clipboard</string>
     <string name="share_undefined_error">Some error happened during sharing. Try again later</string>
+    <string name="share_secret_hint">Enter your secret</string>
+    <string name="share_secret_btn">Share secret!</string>
 </resources>

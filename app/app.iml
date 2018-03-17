@@ -158,12 +158,13 @@
     <orderEntry type="library" scope="TEST" name="org.hamcrest:hamcrest-core:1.3@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-compat-26.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="org.koin:koin-test:0.8.2@jar" level="project" />
+    <orderEntry type="library" name="ru.terrakok.cicerone:cicerone:3.0.0@jar" level="project" />
     <orderEntry type="library" name="android.arch.core:common:1.0.0@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="org.hamcrest:hamcrest-integration:1.3@jar" level="project" />
     <orderEntry type="library" name="org.koin:koin-core:0.8.2@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="net.sf.kxml:kxml2:2.3.0@jar" level="project" />
-    <orderEntry type="library" name="com.android.support:design-26.1.0" level="project" />
     <orderEntry type="library" name="com.android.support:transition-26.1.0" level="project" />
+    <orderEntry type="library" name="com.android.support:design-26.1.0" level="project" />
     <orderEntry type="library" name="org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.2@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="io.mockk:mockk-dsl-jvm:1.7.8@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="net.bytebuddy:byte-buddy:1.7.9@jar" level="project" />

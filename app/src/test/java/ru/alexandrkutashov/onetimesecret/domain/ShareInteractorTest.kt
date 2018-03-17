@@ -19,21 +19,21 @@ import ru.alexandrkutashov.onetimesecret.data.TestDataModule
 import ru.alexandrkutashov.onetimesecret.ext.Result
 
 /**
- * Test for [MainInteractor]
+ * Test for [ShareInteractor]
  *
  * @author Alexandr Kutashov
  * on 04.03.2018
  */
 
-class MainInteractorTest : KoinTest {
+class ShareInteractorTest : KoinTest {
 
     private val api by inject<OneTimeSecret>()
-    private lateinit var interactor: MainInteractor
+    private lateinit var interactor: ShareInteractor
 
     @Before
     fun setUp() {
         startKoin(listOf(TestAppModule(), TestDataModule()))
-        interactor = MainInteractor()
+        interactor = ShareInteractor()
     }
 
     @Test

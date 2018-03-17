@@ -38,6 +38,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     implementation "org.koin:koin-android:$koin_version"
+    implementation "ru.terrakok.cicerone:cicerone:$cicerone_version"
+    implementation "com.arello-mobile:moxy:$moxy_version"
     implementation "com.arello-mobile:moxy-android:$moxy_version"
     implementation "com.arello-mobile:moxy-app-compat:$moxy_version"
     kapt "com.arello-mobile:moxy-compiler:$moxy_version"
@@ -46,6 +48,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+
+kapt {
+    generateStubs = true
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {

@@ -7,6 +7,7 @@ buildscript {
     ext.moxy_version = '1.5.3'
     ext.fuel_version = '1.12.1'
     ext.koin_version = '0.8.2'
+    ext.cicerone_version = '3.0.0'
 
     repositories {
         google()

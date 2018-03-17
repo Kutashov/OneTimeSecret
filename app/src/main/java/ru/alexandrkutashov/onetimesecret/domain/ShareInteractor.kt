@@ -14,7 +14,7 @@ import ru.alexandrkutashov.onetimesecret.ext.Result
  * on 25.02.2018
  */
 
-class MainInteractor : KoinComponent {
+class ShareInteractor : KoinComponent {
 
     private val executors by inject<Executors>()
     private val api by inject<OneTimeSecret>()

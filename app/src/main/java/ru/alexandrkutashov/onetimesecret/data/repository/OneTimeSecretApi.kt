@@ -7,6 +7,7 @@ import com.github.kittinunf.fuel.core.interceptors.loggingResponseInterceptor
 import com.github.kittinunf.fuel.moshi.responseObject
 import org.koin.standalone.KoinComponent
 import ru.alexandrkutashov.onetimesecret.data.repository.model.*
+import ru.alexandrkutashov.onetimesecret.ext.OTPLink
 import ru.alexandrkutashov.onetimesecret.ext.Result
 
 /**
@@ -57,7 +58,7 @@ class OneTimeSecretImpl : OneTimeSecret, KoinComponent {
 
     init {
         FuelManager.instance.apply {
-            basePath = "https://onetimesecret.com/api"
+            basePath = "${OTPLink.baseUrl}/api"
             addResponseInterceptor { loggingResponseInterceptor() }
         }
     }
