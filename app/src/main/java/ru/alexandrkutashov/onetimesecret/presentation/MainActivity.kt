@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         if (intent.data != null) {
             router.newRootScreen(ReadFragment.screenKey, intent.data.toString())
         } else {
-            router.newRootScreen(ShareFragment.screenKey)
+            router.newRootScreen(ShareFragment.screenKey, intent.getStringExtra(Intent.EXTRA_TEXT))
         }
     }
 
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             R.id.fragment) {
         override fun createFragment(screenKey: String?, data: Any?): Fragment = when (screenKey) {
             LoadingFragment.screenKey -> LoadingFragment.newInstance()
-            ShareFragment.screenKey -> ShareFragment.newInstance()
+            ShareFragment.screenKey -> ShareFragment.newInstance(data as String?)
             ReadFragment.screenKey -> ReadFragment.newInstance(data as String)
             else -> throw RuntimeException("Unknown screen key!")
         }

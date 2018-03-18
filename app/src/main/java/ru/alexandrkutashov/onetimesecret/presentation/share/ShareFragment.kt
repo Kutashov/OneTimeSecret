@@ -27,8 +27,17 @@ class ShareFragment : MvpAppCompatFragment(), ShareView {
     lateinit var presenter: SharePresenter
 
     companion object {
+        private const val TEXT_TO_SHARE = "textToShare"
         val screenKey: String = ShareFragment::class.simpleName!!
-        fun newInstance(): Fragment = ShareFragment()
+        fun newInstance(text: String?): Fragment {
+            val fragment = ShareFragment()
+            text?.let {
+                val bundle = Bundle()
+                bundle.putString(TEXT_TO_SHARE, it)
+                fragment.arguments = bundle
+            }
+            return fragment
+        }
     }
 
     private lateinit var secretText: EditText
@@ -38,6 +47,9 @@ class ShareFragment : MvpAppCompatFragment(), ShareView {
         val view = inflater.inflate(R.layout.fragment_share, container, false)
 
         secretText = view.findViewById(R.id.secret_text)
+        if (arguments != null && arguments.containsKey(TEXT_TO_SHARE)) {
+            secretText.append(arguments.getString(TEXT_TO_SHARE))
+        }
 
         view.findViewById<Button>(R.id.share_button)
                 .setOnClickListener({
