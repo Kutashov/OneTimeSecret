@@ -5,22 +5,21 @@
     android:background="@color/background">
 
     <Button
-        android:id="@+id/share_button"
+        android:id="@+id/read_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
-        android:text="@string/share_secret_btn" />
+        android:text="@string/read_secret_btn" />
 
-    <EditText
+    <TextView
         android:id="@+id/secret_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/share_button"
+        android:layout_above="@id/read_button"
+        android:visibility="gone"
         android:layout_margin="@dimen/app_margin"
         android:background="@drawable/secret_field_background"
-        android:gravity="start"
-        android:hint="@string/share_secret_hint"
         android:padding="@dimen/app_padding"
         android:textSize="@dimen/secret_field_text_size" />
 

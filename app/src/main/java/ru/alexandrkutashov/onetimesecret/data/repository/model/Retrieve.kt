@@ -13,7 +13,7 @@ data class RetrieveRequest (
 
 data class RetrieveResponse(
         @Json(name = "value")
-        var value: String? = null,
+        val value: String? = null,
         @Json(name = "secret_key")
-        var secretKey: String? = null
+        val secretKey: String? = null
 )

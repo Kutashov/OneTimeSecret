@@ -1,3 +1,11 @@
 <resources>
+    <!-- margin -->
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="app_margin">10dp</dimen>
+
+    <!-- padding -->
+    <dimen name="app_padding">10dp</dimen>
+
+    <!-- text size -->
+    <dimen name="secret_field_text_size">18sp</dimen>
 </resources>

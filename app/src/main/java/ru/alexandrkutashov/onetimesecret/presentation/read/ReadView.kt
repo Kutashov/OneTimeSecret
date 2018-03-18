@@ -1,28 +1,28 @@
-package ru.alexandrkutashov.onetimesecret.presentation.share
+package ru.alexandrkutashov.onetimesecret.presentation.read
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 /**
- * View for [ShareFragment]
+ * View for [ReadFragment]
  *
  * @author Alexandr Kutashov
  * on 25.02.2018
  */
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface ShareView: MvpView {
+interface ReadView: MvpView {
 
     /**
-     * Secret was successfully shared
+     * Secret was successfully read
      * @param link Url for sharing
      */
-    fun onShareSuccess(link: String?)
+    fun onReadSuccess(value: String?)
 
     /**
-     * Some error happened during sharing
+     * Some error happened during reading
      * @param message some info about error
      */
-    fun onShareError(message: String?)
+    fun onReadError(message: String?)
 }

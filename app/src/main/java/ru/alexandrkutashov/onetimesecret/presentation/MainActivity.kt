@@ -12,8 +12,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.releaseContext
 import ru.alexandrkutashov.onetimesecret.R
+import ru.alexandrkutashov.onetimesecret.ext.debug
 import ru.alexandrkutashov.onetimesecret.ext.toast
 import ru.alexandrkutashov.onetimesecret.presentation.MainModule.Companion.MAIN
+import ru.alexandrkutashov.onetimesecret.presentation.read.ReadFragment
 import ru.alexandrkutashov.onetimesecret.presentation.share.ShareFragment
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
@@ -51,7 +53,12 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         navigatorHolder.setNavigator(navigator)
-        router.newRootScreen(ShareFragment.screenKey)
+        if (intent.data != null) {
+            router.newRootScreen(ReadFragment.screenKey, intent.data.toString())
+        } else {
+            router.newRootScreen(ShareFragment.screenKey)
+        }
+
     }
 
     override fun onPause() {
@@ -81,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         override fun createFragment(screenKey: String?, data: Any?): Fragment = when (screenKey) {
             LoadingFragment.screenKey -> LoadingFragment.newInstance()
             ShareFragment.screenKey -> ShareFragment.newInstance()
+            ReadFragment.screenKey -> ReadFragment.newInstance(data as String)
             else -> throw RuntimeException("Unknown screen key!")
         }
 

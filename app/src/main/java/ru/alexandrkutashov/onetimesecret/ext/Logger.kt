@@ -1,5 +1,6 @@
 package ru.alexandrkutashov.onetimesecret.ext
 
+import android.util.Log
 import ru.alexandrkutashov.onetimesecret.BuildConfig
 
 /**
@@ -10,5 +11,11 @@ import ru.alexandrkutashov.onetimesecret.BuildConfig
 inline fun Exception.log() {
     if (BuildConfig.DEBUG) {
         printStackTrace()
+    }
+}
+
+inline fun String.debug(tag: String) {
+    if (BuildConfig.DEBUG) {
+        Log.d(tag, this)
     }
 }

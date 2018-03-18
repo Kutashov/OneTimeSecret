@@ -5,6 +5,7 @@ import org.koin.Koin
 import org.koin.android.ext.android.startKoin
 import ru.alexandrkutashov.onetimesecret.data.DataModule
 import ru.alexandrkutashov.onetimesecret.presentation.MainModule
+import ru.alexandrkutashov.onetimesecret.presentation.read.ReadModule
 import ru.alexandrkutashov.onetimesecret.presentation.share.ShareModule
 
 /**
@@ -20,7 +21,8 @@ class OTSApp : Application() {
                 AppModule(this),
                 DataModule(),
                 MainModule(),
-                ShareModule()
+                ShareModule(),
+                ReadModule()
         ))
     }
 }

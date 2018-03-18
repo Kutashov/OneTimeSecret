@@ -1,7 +1,6 @@
 package ru.alexandrkutashov.onetimesecret.ext
 
 import junit.framework.Assert.assertEquals
-import org.junit.Assert
 import org.junit.Test
 
 /**
@@ -15,6 +14,7 @@ class LinksTest {
 
     companion object {
         private val URL = "https://onetimesecret.com"
+        private val SECRET_KEY = "fennib70i6eunsep0w1nh9riwq0r7sw"
     }
 
     @Test
@@ -24,6 +24,15 @@ class LinksTest {
         val expected = "$URL/secret/$secretKey"
 
         val actual = OTPLink.secretLink(secretKey)
-        assertEquals(actual, expected)
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun createSecretKey() {
+        val link = "$URL/secret/$SECRET_KEY"
+        val expected = SECRET_KEY
+
+        val actual = OTPLink.secretKey(link)
+        assertEquals(expected, actual)
     }
 }

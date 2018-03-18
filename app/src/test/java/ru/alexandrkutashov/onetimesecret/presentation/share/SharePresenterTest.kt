@@ -34,8 +34,8 @@ class SharePresenterTest : KoinTest {
         private val ERROR_MESSAGE = "Some error happened during sharing"
     }
 
-    private val homeView by inject<ShareView>()
-    private val homeViewState by inject<`ShareView$$State`>()
+    private val shareView by inject<ShareView>()
+    private val shareViewState by inject<`ShareView$$State`>()
     private val interactor by inject<ShareInteractor>()
     private val router by inject<Router>()
     private val resourceManager by inject<Resources>()
@@ -45,8 +45,8 @@ class SharePresenterTest : KoinTest {
     fun setUp() {
         startKoin(listOf(TestAppModule(), TestDataModule(), TestMainModule(), TestShareModule()))
         presenter = SharePresenter()
-        presenter.attachView(homeView)
-        presenter.setViewState(homeViewState)
+        presenter.attachView(shareView)
+        presenter.setViewState(shareViewState)
 
         every { resourceManager.getString(any()) } answers { "" }
         every { router.navigateTo(any()) } just Runs
@@ -76,9 +76,10 @@ class SharePresenterTest : KoinTest {
 
         verifyOrder {
             router.navigateTo(LoadingFragment.screenKey)
-            homeViewState.onShareSuccess(secretLink(SECRET_KEY))
+            shareViewState.onShareSuccess(secretLink(SECRET_KEY))
+            router.backTo(ShareFragment.screenKey)
         }
-        verify(inverse = true) { homeViewState.onShareError(any()) }
+        verify(inverse = true) { shareViewState.onShareError(any()) }
     }
 
     @Test
@@ -91,10 +92,10 @@ class SharePresenterTest : KoinTest {
 
         verifyOrder {
             router.navigateTo(LoadingFragment.screenKey)
-            homeViewState.onShareError(ERROR_MESSAGE)
+            shareViewState.onShareError(ERROR_MESSAGE)
             router.backTo(ShareFragment.screenKey)
         }
-        verify(inverse = true) { homeViewState.onShareSuccess(any()) }
+        verify(inverse = true) { shareViewState.onShareSuccess(any()) }
     }
 
     @After

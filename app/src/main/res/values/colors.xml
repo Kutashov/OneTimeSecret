@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#c8330a</color>
     <color name="colorAccent">#FF000000</color>
     <color name="background">#FFFFFF</color>
+    
+    <color name="secret_field_background">#fafaf9</color>
+    <color name="secret_field_border">#efeeec</color>
 </resources>

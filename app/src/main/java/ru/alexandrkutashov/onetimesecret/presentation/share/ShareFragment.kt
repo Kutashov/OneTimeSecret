@@ -37,8 +37,8 @@ class ShareFragment : MvpAppCompatFragment(), ShareView {
 
         val secretText = view.findViewById<EditText>(R.id.secret_text)
 
-        val shareBtn = view.findViewById<Button>(R.id.share_button)
-        shareBtn.setOnClickListener({
+        view.findViewById<Button>(R.id.share_button)
+                .setOnClickListener({
             presenter.shareSecret(secretText.text.toString())
         })
 
@@ -46,7 +46,7 @@ class ShareFragment : MvpAppCompatFragment(), ShareView {
     }
 
     override fun onShareError(message: String?) {
-        val text = message ?: getString(R.string.share_undefined_error)
+        val text = message ?: getString(R.string.operation_undefined_error)
         context.toast(text)
     }
 

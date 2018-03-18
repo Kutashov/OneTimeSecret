@@ -16,23 +16,23 @@ data class ShareRequest(
 
 data class ShareResponse(
         @Json(name = "custid")
-        var custId: String? = null,
+        val custId: String? = null,
         @Json(name = "metadata_key")
-        var metadataKey: String? = null,
+        val metadataKey: String? = null,
         @Json(name = "secret_key")
-        var secretKey: String? = null,
+        val secretKey: String? = null,
         @Json(name = "metadata_ttl")
-        var metadataTtl: Int? = null,
+        val metadataTtl: Int? = null,
         @Json(name = "secret_ttl")
-        var secretTtl: Int? = null,
+        val secretTtl: Int? = null,
         @Json(name = "ttl")
-        var ttl: Int? = null,
+        val ttl: Int? = null,
         @Json(name = "state")
-        var state: String? = null,
+        val state: String? = null,
         @Json(name = "created")
-        var dateCreated: Long? = null,
+        val dateCreated: Long? = null,
         @Json(name = "updated")
-        var dateUpdated: Long? = null,
+        val dateUpdated: Long? = null,
         @Json(name = "passphrase_required")
-        var isPassphraseRequired: Boolean = false
+        val isPassphraseRequired: Boolean = false
 )
