@@ -1,6 +1,7 @@
 package ru.alexandrkutashov.onetimesecret.presentation.read
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,6 @@ import android.widget.TextView
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.alexandrkutashov.onetimesecret.R
-import ru.alexandrkutashov.onetimesecret.ext.toast
 
 /**
  * @author Alexandr Kutashov
@@ -58,7 +58,7 @@ class ReadFragment : MvpAppCompatFragment(), ReadView {
 
     override fun onReadError(message: String?) {
         val text = message ?: getString(R.string.operation_undefined_error)
-        context.toast(text)
+        Snackbar.make(secret, text, Snackbar.LENGTH_LONG).show()
     }
 
     override fun onReadSuccess(value: String?) {

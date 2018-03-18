@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.releaseContext
 import ru.alexandrkutashov.onetimesecret.R
-import ru.alexandrkutashov.onetimesecret.ext.toast
 import ru.alexandrkutashov.onetimesecret.presentation.MainModule.Companion.MAIN
 import ru.alexandrkutashov.onetimesecret.presentation.read.ReadFragment
 import ru.alexandrkutashov.onetimesecret.presentation.share.ShareFragment
@@ -101,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun showSystemMessage(message: String?) {
-            message?.let { toast(message) }
+            message?.let { Snackbar.make(toolbar, message, Snackbar.LENGTH_LONG).show() }
         }
 
         @SuppressLint("PrivateResource")
