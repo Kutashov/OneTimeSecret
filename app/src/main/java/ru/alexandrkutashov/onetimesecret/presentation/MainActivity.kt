@@ -9,7 +9,9 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.loading_layout.*
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.releaseContext
 import ru.alexandrkutashov.onetimesecret.R
@@ -26,7 +28,7 @@ import ru.terrakok.cicerone.commands.*
  *         on 23.02.2018
  */
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LoadingHandler {
 
     private val navigatorHolder by inject<NavigatorHolder>()
     private val router by inject<Router>()
@@ -45,6 +47,13 @@ class MainActivity : AppCompatActivity() {
             router.newRootScreen(ReadFragment.screenKey, intent.data.toString())
         } else {
             router.newRootScreen(ShareFragment.screenKey, intent.getStringExtra(Intent.EXTRA_TEXT))
+        }
+    }
+
+    override fun showLoading(flag: Boolean) {
+        when (flag) {
+            true -> loadingLayout.visibility = View.VISIBLE
+            false -> loadingLayout.visibility = View.GONE
         }
     }
 
@@ -89,7 +98,6 @@ class MainActivity : AppCompatActivity() {
     private var navigator = object : SupportFragmentNavigator(supportFragmentManager,
             R.id.fragment) {
         override fun createFragment(screenKey: String?, data: Any?): Fragment = when (screenKey) {
-            LoadingFragment.screenKey -> LoadingFragment.newInstance()
             ShareFragment.screenKey -> ShareFragment.newInstance(data as String?)
             ReadFragment.screenKey -> ReadFragment.newInstance(data as String)
             else -> throw RuntimeException("Unknown screen key!")
@@ -114,4 +122,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+}
+
+interface LoadingHandler {
+    fun showLoading(flag: Boolean)
 }

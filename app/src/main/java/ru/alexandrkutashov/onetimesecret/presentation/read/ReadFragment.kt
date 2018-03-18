@@ -8,15 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.alexandrkutashov.onetimesecret.R
+import ru.alexandrkutashov.onetimesecret.presentation.base.AppFragment
 
 /**
  * @author Alexandr Kutashov
  * on 17.03.2018
  */
-class ReadFragment : MvpAppCompatFragment(), ReadView {
+class ReadFragment : AppFragment(), ReadView {
 
     @InjectPresenter
     lateinit var presenter: ReadPresenter

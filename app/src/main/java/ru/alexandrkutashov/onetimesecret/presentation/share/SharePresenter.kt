@@ -9,7 +9,7 @@ import ru.alexandrkutashov.onetimesecret.domain.ShareInteractor
 import ru.alexandrkutashov.onetimesecret.ext.OTPLink.secretLink
 import ru.alexandrkutashov.onetimesecret.ext.Result
 import ru.alexandrkutashov.onetimesecret.ext.log
-import ru.alexandrkutashov.onetimesecret.presentation.AppPresenter
+import ru.alexandrkutashov.onetimesecret.presentation.base.AppPresenter
 import ru.alexandrkutashov.onetimesecret.presentation.share.ShareModule.Companion.SHARE
 
 /**
@@ -24,14 +24,12 @@ class SharePresenter : AppPresenter<ShareView>() {
 
     private val interactor by inject<ShareInteractor>()
 
-    override fun screenKey(): String = ShareFragment.screenKey
-
     fun shareSecret(secret: String, passphrase: String? = null) = launch(executors.uiContext) {
 
         if (secret.isEmpty()) {
-            router.showSystemMessage(resourceManager.getString(R.string.empty_secret))
+            viewState.onShareError(resourceManager.getString(R.string.empty_secret))
         } else {
-            showLoading(true)
+            viewState.showLoading(true)
 
             val result = interactor.shareSecret(secret, passphrase)
             when (result) {
@@ -42,7 +40,7 @@ class SharePresenter : AppPresenter<ShareView>() {
                 }
             }
 
-            showLoading(false)
+            viewState.showLoading(false)
         }
     }
 

@@ -8,7 +8,7 @@ import ru.alexandrkutashov.onetimesecret.domain.ReadInteractor
 import ru.alexandrkutashov.onetimesecret.ext.OTPLink.secretKey
 import ru.alexandrkutashov.onetimesecret.ext.Result
 import ru.alexandrkutashov.onetimesecret.ext.log
-import ru.alexandrkutashov.onetimesecret.presentation.AppPresenter
+import ru.alexandrkutashov.onetimesecret.presentation.base.AppPresenter
 import ru.alexandrkutashov.onetimesecret.presentation.read.ReadModule.Companion.READ
 
 /**
@@ -23,11 +23,9 @@ class ReadPresenter : AppPresenter<ReadView>() {
 
     private val interactor by inject<ReadInteractor>()
 
-    override fun screenKey(): String = ReadFragment.screenKey
-
     fun readSecret(link: String, passphrase: String? = null) = launch(executors.uiContext) {
 
-        showLoading(true)
+        viewState.showLoading(true)
 
         val result = interactor.readSecret(secretKey(link), passphrase)
         when (result) {
@@ -38,7 +36,7 @@ class ReadPresenter : AppPresenter<ReadView>() {
             }
         }
 
-        showLoading(false)
+        viewState.showLoading(false)
     }
 
     override fun onDestroy() {

@@ -15,9 +15,6 @@ import ru.alexandrkutashov.onetimesecret.data.repository.model.ShareResponse
 import ru.alexandrkutashov.onetimesecret.domain.ShareInteractor
 import ru.alexandrkutashov.onetimesecret.ext.OTPLink.secretLink
 import ru.alexandrkutashov.onetimesecret.ext.Result
-import ru.alexandrkutashov.onetimesecret.presentation.LoadingFragment
-import ru.alexandrkutashov.onetimesecret.presentation.TestMainModule
-import ru.terrakok.cicerone.Router
 
 /**
  * Test for [SharePresenter]
@@ -37,28 +34,24 @@ class SharePresenterTest : KoinTest {
     private val shareView by inject<ShareView>()
     private val shareViewState by inject<`ShareView$$State`>()
     private val interactor by inject<ShareInteractor>()
-    private val router by inject<Router>()
     private val resourceManager by inject<Resources>()
     private lateinit var presenter: SharePresenter
 
     @Before
     fun setUp() {
-        startKoin(listOf(TestAppModule(), TestDataModule(), TestMainModule(), TestShareModule()))
+        startKoin(listOf(TestAppModule(), TestDataModule(), TestShareModule()))
         presenter = SharePresenter()
         presenter.attachView(shareView)
         presenter.setViewState(shareViewState)
 
         every { resourceManager.getString(any()) } answers { "" }
-        every { router.navigateTo(any()) } just Runs
-        every { router.backTo(any()) } just Runs
-        every { router.showSystemMessage(any()) } just Runs
     }
 
     @Test
     fun shareEmptySecret() {
         presenter.shareSecret(EMPTY_SECRET)
 
-        verify { router.showSystemMessage(any()) }
+        verify { shareViewState.onShareError(any()) }
         verify { interactor wasNot Called }
     }
 
@@ -75,9 +68,9 @@ class SharePresenterTest : KoinTest {
         presenter.shareSecret("someSecret")
 
         verifyOrder {
-            router.navigateTo(LoadingFragment.screenKey)
+            shareViewState.showLoading(true)
             shareViewState.onShareSuccess(secretLink(SECRET_KEY))
-            router.backTo(ShareFragment.screenKey)
+            shareViewState.showLoading(false)
         }
         verify(inverse = true) { shareViewState.onShareError(any()) }
     }
@@ -91,9 +84,9 @@ class SharePresenterTest : KoinTest {
         presenter.shareSecret("someSecret")
 
         verifyOrder {
-            router.navigateTo(LoadingFragment.screenKey)
+            shareViewState.showLoading(true)
             shareViewState.onShareError(ERROR_MESSAGE)
-            router.backTo(ShareFragment.screenKey)
+            shareViewState.showLoading(false)
         }
         verify(inverse = true) { shareViewState.onShareSuccess(any()) }
     }

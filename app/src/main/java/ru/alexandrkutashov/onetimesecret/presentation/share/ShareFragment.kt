@@ -11,9 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.alexandrkutashov.onetimesecret.R
+import ru.alexandrkutashov.onetimesecret.presentation.base.AppFragment
 
 
 /**
@@ -21,7 +21,7 @@ import ru.alexandrkutashov.onetimesecret.R
  *         on 23.02.2018
  */
 
-class ShareFragment : MvpAppCompatFragment(), ShareView {
+class ShareFragment : AppFragment(), ShareView {
 
     @InjectPresenter
     lateinit var presenter: SharePresenter

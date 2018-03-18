@@ -1,7 +1,8 @@
 package ru.alexandrkutashov.onetimesecret.presentation.read
 
-import android.content.res.Resources
-import io.mockk.*
+import io.mockk.coEvery
+import io.mockk.verify
+import io.mockk.verifyOrder
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -14,9 +15,6 @@ import ru.alexandrkutashov.onetimesecret.data.TestDataModule
 import ru.alexandrkutashov.onetimesecret.data.repository.model.RetrieveResponse
 import ru.alexandrkutashov.onetimesecret.domain.ReadInteractor
 import ru.alexandrkutashov.onetimesecret.ext.Result
-import ru.alexandrkutashov.onetimesecret.presentation.LoadingFragment
-import ru.alexandrkutashov.onetimesecret.presentation.TestMainModule
-import ru.terrakok.cicerone.Router
 
 /**
  * Test for [ReadPresenter]
@@ -29,7 +27,6 @@ class ReadPresenterTest : KoinTest {
     private val readView by inject<ReadView>()
     private val readViewState by inject<`ReadView$$State`>()
     private val interactor by inject<ReadInteractor>()
-    private val router by inject<Router>()
     private lateinit var presenter: ReadPresenter
 
     companion object {
@@ -40,14 +37,10 @@ class ReadPresenterTest : KoinTest {
 
     @Before
     fun setUp() {
-        startKoin(listOf(TestAppModule(), TestDataModule(), TestMainModule(), TestReadModule()))
+        startKoin(listOf(TestAppModule(), TestDataModule(), TestReadModule()))
         presenter = ReadPresenter()
         presenter.attachView(readView)
         presenter.setViewState(readViewState)
-
-        every { router.navigateTo(any()) } just Runs
-        every { router.backTo(any()) } just Runs
-        every { router.showSystemMessage(any()) } just Runs
     }
 
     @Test
@@ -61,9 +54,9 @@ class ReadPresenterTest : KoinTest {
         presenter.readSecret("someSecretLink")
 
         verifyOrder {
-            router.navigateTo(LoadingFragment.screenKey)
+            readViewState.showLoading(true)
             readViewState.onReadSuccess(SECRET_TEXT)
-            router.backTo(ReadFragment.screenKey)
+            readViewState.showLoading(false)
         }
         verify(inverse = true) { readViewState.onReadError(any()) }
     }
@@ -76,9 +69,9 @@ class ReadPresenterTest : KoinTest {
         presenter.readSecret("someSecretLink")
 
         verifyOrder {
-            router.navigateTo(LoadingFragment.screenKey)
+            readViewState.showLoading(true)
             readViewState.onReadError(ERROR_MESSAGE)
-            router.backTo(ReadFragment.screenKey)
+            readViewState.showLoading(false)
         }
         verify(inverse = true) { readViewState.onReadSuccess(any()) }
     }
