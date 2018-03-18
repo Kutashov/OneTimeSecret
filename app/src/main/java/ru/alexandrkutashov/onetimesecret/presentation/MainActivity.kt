@@ -1,6 +1,7 @@
 package ru.alexandrkutashov.onetimesecret.presentation
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -12,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.releaseContext
 import ru.alexandrkutashov.onetimesecret.R
-import ru.alexandrkutashov.onetimesecret.ext.debug
 import ru.alexandrkutashov.onetimesecret.ext.toast
 import ru.alexandrkutashov.onetimesecret.presentation.MainModule.Companion.MAIN
 import ru.alexandrkutashov.onetimesecret.presentation.read.ReadFragment
@@ -41,6 +41,12 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
+        if (intent.data != null) {
+            router.newRootScreen(ReadFragment.screenKey, intent.data.toString())
+        } else {
+            router.newRootScreen(ShareFragment.screenKey)
+        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -53,12 +59,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         navigatorHolder.setNavigator(navigator)
-        if (intent.data != null) {
-            router.newRootScreen(ReadFragment.screenKey, intent.data.toString())
-        } else {
-            router.newRootScreen(ShareFragment.screenKey)
-        }
-
     }
 
     override fun onPause() {
@@ -79,6 +79,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_settings -> true
+            R.id.action_about -> {
+                startActivity(Intent(this, AboutActivity::class.java))
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

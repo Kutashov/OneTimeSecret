@@ -29,9 +29,13 @@
 
                 <data
                     android:host="onetimesecret.com"
+                    android:pathPrefix="/secret"
                     android:scheme="https" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.AboutActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

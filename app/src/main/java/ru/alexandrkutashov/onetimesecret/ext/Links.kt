@@ -7,12 +7,12 @@ package ru.alexandrkutashov.onetimesecret.ext
 
 object OTPLink {
 
-    val baseUrl = "https://onetimesecret.com"
+    const val BASE_URL = "https://onetimesecret.com"
 
     /**
      * Creates full link of the secret for sharing
      */
-    fun secretLink(secretKey: String?): String? = secretKey?.let { "$baseUrl/secret/$it" }
+    fun secretLink(secretKey: String?): String? = secretKey?.let { "$BASE_URL/secret/$it" }
 
     /**
      * Retrieve secretKey from the shared secret link

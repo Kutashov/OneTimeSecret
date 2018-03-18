@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">OneTimeSecret</string>
     <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
 
     <!-- Share fragment -->
     <string name="empty_secret">Something is better than nothing!</string>

@@ -58,7 +58,7 @@ class OneTimeSecretImpl : OneTimeSecret, KoinComponent {
 
     init {
         FuelManager.instance.apply {
-            basePath = "${OTPLink.baseUrl}/api"
+            basePath = "${OTPLink.BASE_URL}/api"
             addResponseInterceptor { loggingResponseInterceptor() }
         }
     }
