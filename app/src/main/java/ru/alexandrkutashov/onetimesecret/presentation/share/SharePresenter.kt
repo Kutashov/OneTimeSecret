@@ -46,6 +46,7 @@ class SharePresenter : AppPresenter<ShareView>() {
 
     override fun onDestroy() {
         super.onDestroy()
+        interactor.cancelJobs()
         releaseContext(SHARE)
     }
 

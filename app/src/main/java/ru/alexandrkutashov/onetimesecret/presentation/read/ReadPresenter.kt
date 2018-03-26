@@ -41,6 +41,7 @@ class ReadPresenter : AppPresenter<ReadView>() {
 
     override fun onDestroy() {
         super.onDestroy()
+        interactor.cancelJobs()
         releaseContext(READ)
     }
 

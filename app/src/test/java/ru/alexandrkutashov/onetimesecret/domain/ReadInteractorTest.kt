@@ -31,7 +31,7 @@ class ReadInteractorTest : KoinTest {
 
     @Before
     fun setUp() {
-        startKoin(listOf(TestAppModule(), TestDataModule()))
+        startKoin(listOf(TestAppModule(), TestDomainModule(), TestDataModule()))
         interactor = ReadInteractor()
     }
 
