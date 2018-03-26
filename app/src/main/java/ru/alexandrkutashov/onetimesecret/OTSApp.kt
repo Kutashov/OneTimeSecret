@@ -1,6 +1,7 @@
 package ru.alexandrkutashov.onetimesecret
 
 import android.app.Application
+import android.os.StrictMode
 import org.koin.Koin
 import org.koin.android.ext.android.startKoin
 import ru.alexandrkutashov.onetimesecret.data.DataModule
@@ -26,5 +27,13 @@ class OTSApp : Application() {
                 ShareModule(),
                 ReadModule()
         ))
+
+        if (BuildConfig.DEBUG) {
+            val policy = StrictMode.VmPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build()
+            StrictMode.setVmPolicy(policy)
+        }
     }
 }
