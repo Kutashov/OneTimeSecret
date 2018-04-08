@@ -16,19 +16,23 @@ import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.releaseContext
 import ru.alexandrkutashov.onetimesecret.R
 import ru.alexandrkutashov.onetimesecret.presentation.MainModule.Companion.MAIN
+import ru.alexandrkutashov.onetimesecret.presentation.metadata.MetadataFragment
 import ru.alexandrkutashov.onetimesecret.presentation.read.ReadFragment
 import ru.alexandrkutashov.onetimesecret.presentation.share.ShareFragment
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.SupportFragmentNavigator
 import ru.terrakok.cicerone.commands.*
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
+
 
 /**
  * @author Alexandr Kutashov
  *         on 23.02.2018
  */
 
-class MainActivity : AppCompatActivity(), LoadingHandler {
+class MainActivity : AppCompatActivity(), LoadingHandler, KeyboardHandler, FabHandler {
 
     private val navigatorHolder by inject<NavigatorHolder>()
     private val router by inject<Router>()
@@ -39,8 +43,10 @@ class MainActivity : AppCompatActivity(), LoadingHandler {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            val current = getCurrentFragment()
+            when (current) {
+                is FabListener -> (current as FabListener).onClick(view)
+            }
         }
 
         if (intent.data != null) {
@@ -55,6 +61,24 @@ class MainActivity : AppCompatActivity(), LoadingHandler {
             true -> loadingLayout.visibility = View.VISIBLE
             false -> loadingLayout.visibility = View.GONE
         }
+    }
+
+    override fun showKeyboard() {
+        val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInputFromInputMethod(toolbar.windowToken, 0)
+    }
+
+    override fun hideKeyboard() {
+        val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(toolbar.windowToken, 0)
+    }
+
+    override fun showFab() {
+        fab.visibility = View.VISIBLE
+    }
+
+    override fun hideFab() {
+        fab.visibility = View.GONE
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -95,11 +119,18 @@ class MainActivity : AppCompatActivity(), LoadingHandler {
         }
     }
 
+    private fun getCurrentFragment(): Fragment {
+        val fragmentManager = supportFragmentManager
+        val stackCount = fragmentManager.backStackEntryCount
+        return fragmentManager.fragments[if (stackCount > 0) stackCount - 1 else stackCount]
+    }
+
     private var navigator = object : SupportFragmentNavigator(supportFragmentManager,
             R.id.fragment) {
         override fun createFragment(screenKey: String?, data: Any?): Fragment = when (screenKey) {
             ShareFragment.screenKey -> ShareFragment.newInstance(data as String?)
             ReadFragment.screenKey -> ReadFragment.newInstance(data as String)
+            MetadataFragment.screenKey -> MetadataFragment.newInstance(data as String)
             else -> throw RuntimeException("Unknown screen key!")
         }
 
@@ -126,4 +157,18 @@ class MainActivity : AppCompatActivity(), LoadingHandler {
 
 interface LoadingHandler {
     fun showLoading(flag: Boolean)
+}
+
+interface KeyboardHandler {
+    fun showKeyboard()
+    fun hideKeyboard()
+}
+
+interface FabHandler {
+    fun showFab()
+    fun hideFab()
+}
+
+interface FabListener {
+    fun onClick(view: View)
 }

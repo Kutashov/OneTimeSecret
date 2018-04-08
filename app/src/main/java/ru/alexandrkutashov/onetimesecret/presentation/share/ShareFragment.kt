@@ -1,8 +1,5 @@
 package ru.alexandrkutashov.onetimesecret.presentation.share
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -13,7 +10,9 @@ import android.widget.Button
 import android.widget.EditText
 import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.alexandrkutashov.onetimesecret.R
+import ru.alexandrkutashov.onetimesecret.ext.OTPLink.copyLink
 import ru.alexandrkutashov.onetimesecret.presentation.base.AppFragment
+import ru.alexandrkutashov.onetimesecret.presentation.metadata.MetadataFragment
 
 
 /**
@@ -53,6 +52,7 @@ class ShareFragment : AppFragment(), ShareView {
 
         view.findViewById<Button>(R.id.share_button)
                 .setOnClickListener({
+                    hideKeyboard()
                     presenter.shareSecret(secretText.text.toString())
                 })
 
@@ -60,18 +60,16 @@ class ShareFragment : AppFragment(), ShareView {
     }
 
     override fun onShareError(message: String?) {
+        showKeyboard()
         val text = message ?: getString(R.string.operation_undefined_error)
         Snackbar.make(secretText, text, Snackbar.LENGTH_LONG).show()
     }
 
-    override fun onShareSuccess(link: String?) {
-        link?.let { copyLink(it) }
-        Snackbar.make(secretText, R.string.link_copied, Snackbar.LENGTH_LONG).show()
-    }
-
-    private fun copyLink(link: String) {
-        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("Secret for sharing", link)
-        clipboard.primaryClip = clip
+    override fun onShareSuccess(link: String?, metadataKey: String?) {
+        link?.let {
+            copyLink(context, it)
+            router.showSystemMessage(getString(R.string.link_copied))
+        }
+        router.newRootScreen(MetadataFragment.screenKey, metadataKey)
     }
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/secret_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_margin"
+        android:background="@color/secret_link_background"
+        android:padding="@dimen/app_padding"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/secret_field_text_size" />
+
+    <TextView
+        android:id="@+id/password_required"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="@dimen/app_margin"
+        android:text="@string/secret_encrypted"
+        android:textColor="@color/colorHint"
+        android:textSize="@dimen/secret_field_text_size"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/time_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_margin"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/secret_field_text_size"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+</LinearLayout>

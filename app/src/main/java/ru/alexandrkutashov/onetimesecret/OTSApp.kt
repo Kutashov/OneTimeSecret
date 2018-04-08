@@ -7,6 +7,7 @@ import org.koin.android.ext.android.startKoin
 import ru.alexandrkutashov.onetimesecret.data.DataModule
 import ru.alexandrkutashov.onetimesecret.domain.DomainModule
 import ru.alexandrkutashov.onetimesecret.presentation.MainModule
+import ru.alexandrkutashov.onetimesecret.presentation.metadata.MetadataModule
 import ru.alexandrkutashov.onetimesecret.presentation.read.ReadModule
 import ru.alexandrkutashov.onetimesecret.presentation.share.ShareModule
 
@@ -25,7 +26,8 @@ class OTSApp : Application() {
                 DomainModule(),
                 MainModule(),
                 ShareModule(),
-                ReadModule()
+                ReadModule(),
+                MetadataModule()
         ))
 
         if (BuildConfig.DEBUG) {

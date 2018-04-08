@@ -3,8 +3,11 @@
     <color name="colorPrimary">#dd4a22</color>
     <color name="colorPrimaryDark">#c8330a</color>
     <color name="colorAccent">#FF000000</color>
-    <color name="background">#CCFFFFFF</color>
-    
+    <color name="colorHint">#FF9A9791</color>
+    <color name="common_background">#FFFFFFFF</color>
+
+    <color name="secret_background">#CCFFFFFF</color>
     <color name="secret_field_background">#fafaf9</color>
+    <color name="secret_link_background">#ffff24</color>
     <color name="secret_field_border">#efeeec</color>
 </resources>

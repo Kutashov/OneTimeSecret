@@ -33,7 +33,8 @@ class SharePresenter : AppPresenter<ShareView>() {
 
             val result = interactor.shareSecret(secret, passphrase)
             when (result) {
-                is Result.Success -> viewState.onShareSuccess(secretLink(result.data.secretKey))
+                is Result.Success -> viewState.onShareSuccess(secretLink(result.data.secretKey),
+                        result.data.metadataKey)
                 is Result.Error -> {
                     result.exception.log()
                     viewState.onShareError(result.exception.message)

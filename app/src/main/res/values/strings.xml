@@ -12,4 +12,30 @@
 
     <!-- Read fragment -->
     <string name="read_secret_btn">Read secret!</string>
+
+    <!-- Metadata fragment -->
+    <string name="secret_encrypted">Требуется пароль</string>
+    <string name="expired_">Истекает через %s</string>
+    <plurals name="in_time_days">
+        <item quantity="one">%d день</item>
+        <item quantity="two">%d дня</item>
+        <item quantity="few">%d дня</item>
+        <item quantity="many">%d дней</item>
+        <item quantity="other">%d дней</item>
+    </plurals>
+    <plurals name="in_time_hours">
+        <item quantity="one">%d час</item>
+        <item quantity="two">%d часа</item>
+        <item quantity="few">%d часа</item>
+        <item quantity="many">%d часов</item>
+        <item quantity="other">%d часов</item>
+    </plurals>
+    <plurals name="in_time_minutes">
+        <item quantity="one">%d минуту</item>
+        <item quantity="two">%d минуты</item>
+        <item quantity="few">%d минуты</item>
+        <item quantity="many">%d минут</item>
+        <item quantity="other">%d минут</item>
+    </plurals>
+
 </resources>

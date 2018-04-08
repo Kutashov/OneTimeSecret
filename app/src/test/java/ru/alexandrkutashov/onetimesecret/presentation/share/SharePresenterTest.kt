@@ -58,8 +58,9 @@ class SharePresenterTest : KoinTest {
     @Test
     fun shareSuccess() {
 
+        val metadataKey = "someMetadataKey"
         val expected = Result.Success(ShareResponse(
-                metadataKey = "someMetadataKey",
+                metadataKey = metadataKey,
                 metadataTtl = 12345,
                 secretKey = SECRET_KEY
         ))
@@ -69,7 +70,7 @@ class SharePresenterTest : KoinTest {
 
         verifyOrder {
             shareViewState.showLoading(true)
-            shareViewState.onShareSuccess(secretLink(SECRET_KEY))
+            shareViewState.onShareSuccess(secretLink(SECRET_KEY), metadataKey)
             shareViewState.showLoading(false)
         }
         verify(inverse = true) { shareViewState.onShareError(any()) }
@@ -88,7 +89,7 @@ class SharePresenterTest : KoinTest {
             shareViewState.onShareError(ERROR_MESSAGE)
             shareViewState.showLoading(false)
         }
-        verify(inverse = true) { shareViewState.onShareSuccess(any()) }
+        verify(inverse = true) { shareViewState.onShareSuccess(any(), any()) }
     }
 
     @After

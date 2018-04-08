@@ -12,7 +12,7 @@
 
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
         <item name="backgroundTint">@color/colorPrimary</item>
-        <item name="android:textColor">@color/background</item>
+        <item name="android:textColor">@color/secret_background</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

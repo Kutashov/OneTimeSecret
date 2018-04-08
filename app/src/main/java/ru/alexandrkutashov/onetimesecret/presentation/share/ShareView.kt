@@ -1,6 +1,5 @@
 package ru.alexandrkutashov.onetimesecret.presentation.share
 
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import ru.alexandrkutashov.onetimesecret.presentation.base.AppView
@@ -13,13 +12,14 @@ import ru.alexandrkutashov.onetimesecret.presentation.base.AppView
  */
 
 @StateStrategyType(OneExecutionStateStrategy::class)
-interface ShareView: AppView {
+interface ShareView : AppView {
 
     /**
      * Secret was successfully shared
      * @param link Url for sharing
+     * @param metadataKey A private key for accessing secret's info
      */
-    fun onShareSuccess(link: String?)
+    fun onShareSuccess(link: String?, metadataKey: String?)
 
     /**
      * Some error happened during sharing
