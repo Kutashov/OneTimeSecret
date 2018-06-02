@@ -8,5 +8,4 @@
 
     <!-- text size -->
     <dimen name="secret_field_text_size">18sp</dimen>
-    <dimen name="hint_text_size">12sp</dimen>
 </resources>

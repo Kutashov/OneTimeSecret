@@ -1,0 +1,59 @@
+sudo: required
+dist: trusty
+language: android
+jdk: oraclejdk8
+cache: false
+before_cache:
+ - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+ - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
+env:
+  global:
+   - ANDROID_BUILD_TOOLS_VERSION=27.0.3
+   - ANDROID_COMPILE=26
+   - ADB_INSTALL_TIMEOUT=15 # minutes (2 minutes by default)
+   - GRADLE_OPTS="-Xmx1024m"
+  matrix:
+    - ANDROID_EMULATOR=21 ANDROID_ABI=armeabi-v7a
+#    This is the only working config for now
+
+android:
+  components:
+    - tools # to get the new `repository-11.xml`
+    - tools # to install Android SDK tools
+    - platform-tools
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    - android-$ANDROID_EMULATOR
+    - android-$ANDROID_COMPILE
+    - sys-img-armeabi-v7a-google_apis-21
+    - extra-google-m2repository
+    - extra-android-m2repository
+    # Google Play Services
+    - extra-google-google_play_services
+    # Support library
+    - extra-android-support
+  licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+
+before_install:
+  - chmod +x gradlew
+before_script:
+  - echo no | android create avd --force -n test -t android-$ANDROID_EMULATOR --abi google_apis/$ANDROID_ABI
+  - emulator -avd test -no-skin -no-window -qemu -m 512 &
+script:
+  - ./gradlew build
+  - android-wait-for-emulator
+  - adb shell settings put global window_animation_scale 0 &
+  - adb shell settings put global transition_animation_scale 0 &
+  - adb shell settings put global animator_duration_scale 0 &
+  - adb shell input keyevent 82 &
+  - ./gradlew connectedCheck
+notifications:
+  email: false

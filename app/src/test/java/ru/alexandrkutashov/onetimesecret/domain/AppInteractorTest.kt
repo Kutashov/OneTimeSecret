@@ -1,6 +1,6 @@
 package ru.alexandrkutashov.onetimesecret.domain
 
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import kotlinx.coroutines.experimental.*
 import kotlinx.coroutines.experimental.sync.Mutex
 import org.junit.After

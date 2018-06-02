@@ -19,7 +19,7 @@
         android:id="@+id/password_required"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_margin="@dimen/app_margin"
         android:text="@string/secret_encrypted"
         android:textColor="@color/colorHint"

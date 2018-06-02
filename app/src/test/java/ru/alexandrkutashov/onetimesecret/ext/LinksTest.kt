@@ -1,6 +1,6 @@
 package ru.alexandrkutashov.onetimesecret.ext
 
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
