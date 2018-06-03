@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply from: 'config/jacoco.gradle'
+apply from: 'config/coveralls.gradle'
 
 android {
     compileSdkVersion 26
@@ -14,6 +16,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -54,6 +59,7 @@ dependencies {
     testImplementation "org.koin:koin-test:$koin_version"
     testImplementation "io.mockk:mockk:1.7.8"
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.robolectric:robolectric:3.8"
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
