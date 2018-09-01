@@ -68,12 +68,11 @@ class SharePresenterTest : KoinTest {
         coEvery { interactor.shareSecret(allAny()) } answers { expected }
         presenter.shareSecret("someSecret")
 
-        verifyOrder {
+        verifySequence {
             shareViewState.showLoading(true)
             shareViewState.onShareSuccess(secretLink(SECRET_KEY), metadataKey)
             shareViewState.showLoading(false)
         }
-        verify(inverse = true) { shareViewState.onShareError(any()) }
     }
 
     @Test
@@ -84,12 +83,11 @@ class SharePresenterTest : KoinTest {
         coEvery { interactor.shareSecret(allAny()) } answers { expected }
         presenter.shareSecret("someSecret")
 
-        verifyOrder {
+        verifySequence {
             shareViewState.showLoading(true)
             shareViewState.onShareError(ERROR_MESSAGE)
             shareViewState.showLoading(false)
         }
-        verify(inverse = true) { shareViewState.onShareSuccess(any(), any()) }
     }
 
     @After

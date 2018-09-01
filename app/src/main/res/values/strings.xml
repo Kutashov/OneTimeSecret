@@ -16,6 +16,10 @@
     <!-- Metadata fragment -->
     <string name="secret_encrypted">Требуется пароль</string>
     <string name="expired_">Истекает через %s</string>
+    <string name="burn_secret">🔥 Сжечь эту тайну</string>
+    <string name="burn_dialog_title">Сжечь?</string>
+    <string name="burn_dialog_message">Сожжение тайны не может быть отменено</string>
+    <string name="burn_secret_success">Тайна сожжена</string>
     <plurals name="in_time_days">
         <item quantity="one">%d день</item>
         <item quantity="two">%d дня</item>

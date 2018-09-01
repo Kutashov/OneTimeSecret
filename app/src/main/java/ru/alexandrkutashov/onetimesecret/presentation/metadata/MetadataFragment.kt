@@ -3,15 +3,18 @@ package ru.alexandrkutashov.onetimesecret.presentation.metadata
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import ru.alexandrkutashov.onetimesecret.R
 import ru.alexandrkutashov.onetimesecret.ext.OTPLink.copyLink
 import ru.alexandrkutashov.onetimesecret.presentation.FabListener
 import ru.alexandrkutashov.onetimesecret.presentation.base.AppFragment
+import ru.alexandrkutashov.onetimesecret.presentation.share.ShareFragment
 
 /**
  * @author Alexandr Kutashov
@@ -54,6 +57,17 @@ class MetadataFragment : AppFragment(), MetadataView, FabListener {
         passwordRequired = view.findViewById(R.id.password_required)
         timeLeft = view.findViewById(R.id.time_left)
 
+        view.findViewById<Button>(R.id.burn_secret_btn).setOnClickListener {
+            AlertDialog.Builder(activity)
+                    .setTitle(R.string.burn_dialog_title)
+                    .setMessage(R.string.burn_dialog_message)
+                    .setPositiveButton(android.R.string.yes) { _, _ ->
+                        presenter.burnSecret(arguments.getString(METADATA_KEY))
+                    }
+                    .setNegativeButton(android.R.string.no) { dialog, _ -> dialog.dismiss() }
+                    .create().show()
+        }
+
         showFab()
 
         return view
@@ -64,7 +78,12 @@ class MetadataFragment : AppFragment(), MetadataView, FabListener {
         hideFab()
     }
 
-    override fun onMetadataError(message: String?) {
+    override fun onBurnSecretSuccess() {
+        router.showSystemMessage(getString(R.string.burn_secret_success))
+        router.newRootScreen(ShareFragment.screenKey)
+    }
+
+    override fun onError(message: String?) {
         val text = message ?: getString(R.string.operation_undefined_error)
         Snackbar.make(passwordRequired, text, Snackbar.LENGTH_LONG).show()
     }

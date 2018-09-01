@@ -11,8 +11,14 @@
     </style>
 
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
-        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:padding">5dp</item>
         <item name="android:textColor">@color/secret_background</item>
+    </style>
+
+    <style name="AppTheme.Button.Alternative" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/alternative_button_background</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

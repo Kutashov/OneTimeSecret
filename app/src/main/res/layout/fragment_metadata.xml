@@ -37,4 +37,13 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
+    <Button
+        android:id="@+id/burn_secret_btn"
+        style="@style/AppTheme.Button.Alternative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/button_margin"
+        android:text="@string/burn_secret" />
+
 </LinearLayout>

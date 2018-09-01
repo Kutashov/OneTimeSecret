@@ -62,12 +62,11 @@ class MetadataPresenterTest : KoinTest {
         coEvery { interactor.getSecretMetadata(allAny()) } answers { expected }
         presenter.getSecretMetadata(metadataKey)
 
-        verifyOrder {
+        verifySequence {
             shareViewState.showLoading(true)
             shareViewState.onMetadataSuccess(secretLink(SECRET_KEY), isPasswordRequired, any())
             shareViewState.showLoading(false)
         }
-        verify(inverse = true) { shareViewState.onMetadataError(any()) }
     }
 
     @Test
@@ -78,12 +77,26 @@ class MetadataPresenterTest : KoinTest {
         coEvery { interactor.getSecretMetadata(allAny()) } answers { expected }
         presenter.getSecretMetadata("someSecret")
 
-        verifyOrder {
+        verifySequence {
             shareViewState.showLoading(true)
-            shareViewState.onMetadataError(ERROR_MESSAGE)
+            shareViewState.onError(ERROR_MESSAGE)
             shareViewState.showLoading(false)
         }
-        verify(inverse = true) { shareViewState.onMetadataSuccess(any(), any(), any()) }
+    }
+
+    @Test
+    fun burnError() {
+
+        val expected = Result.Error(Exception(ERROR_MESSAGE))
+
+        coEvery { interactor.burnSecret(allAny()) } answers { expected }
+        presenter.burnSecret("someSecret")
+
+        verifySequence {
+            shareViewState.showLoading(true)
+            shareViewState.onError(ERROR_MESSAGE)
+            shareViewState.showLoading(false)
+        }
     }
 
     @After

@@ -2,6 +2,7 @@
     <!-- margin -->
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_margin">10dp</dimen>
+    <dimen name="button_margin">20dp</dimen>
 
     <!-- padding -->
     <dimen name="app_padding">10dp</dimen>

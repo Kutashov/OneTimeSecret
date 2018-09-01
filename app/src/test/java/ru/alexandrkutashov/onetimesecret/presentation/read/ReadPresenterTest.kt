@@ -1,8 +1,7 @@
 package ru.alexandrkutashov.onetimesecret.presentation.read
 
 import io.mockk.coEvery
-import io.mockk.verify
-import io.mockk.verifyOrder
+import io.mockk.verifySequence
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -53,12 +52,11 @@ class ReadPresenterTest : KoinTest {
         coEvery { interactor.readSecret(allAny()) } answers { expected }
         presenter.readSecret("someSecretLink")
 
-        verifyOrder {
+        verifySequence {
             readViewState.showLoading(true)
             readViewState.onReadSuccess(SECRET_TEXT)
             readViewState.showLoading(false)
         }
-        verify(inverse = true) { readViewState.onReadError(any()) }
     }
 
     @Test
@@ -68,12 +66,11 @@ class ReadPresenterTest : KoinTest {
         coEvery { interactor.readSecret(allAny()) } answers { expected }
         presenter.readSecret("someSecretLink")
 
-        verifyOrder {
+        verifySequence {
             readViewState.showLoading(true)
             readViewState.onReadError(ERROR_MESSAGE)
             readViewState.showLoading(false)
         }
-        verify(inverse = true) { readViewState.onReadSuccess(any()) }
     }
 
     @After

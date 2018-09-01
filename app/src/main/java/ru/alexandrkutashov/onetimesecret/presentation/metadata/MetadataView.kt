@@ -20,8 +20,13 @@ interface MetadataView : AppView {
     fun onMetadataSuccess(secretLink: String?, isPassphraseRequired: Boolean, inTimeString: String?)
 
     /**
-     * Some error happened during getting metadata
+     * Some error happened during request
      * @param message some info about error
      */
-    fun onMetadataError(message: String?)
+    fun onError(message: String?)
+
+    /**
+     * Secret was burned
+     */
+    fun onBurnSecretSuccess()
 }

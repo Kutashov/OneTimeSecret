@@ -29,10 +29,10 @@ class MetadataPresenter : AppPresenter<MetadataView>() {
         when (result) {
             is Result.Success -> viewState.onMetadataSuccess(secretLink(result.data.secretKey),
                     result.data.isPassphraseRequired,
-                    result.data.metadataTtl.secondsToInTimeString(resourceManager))
+                    result.data.secretTtl.secondsToInTimeString(resourceManager))
             is Result.Error -> {
                 result.exception.log()
-                viewState.onMetadataError(result.exception.message)
+                viewState.onError(result.exception.message)
             }
         }
 
@@ -43,6 +43,21 @@ class MetadataPresenter : AppPresenter<MetadataView>() {
         super.onDestroy()
         interactor.cancelJobs()
         releaseContext(METADATA)
+    }
+
+    fun burnSecret(metadataKey: String?) = launch(executors.uiContext) {
+        viewState.showLoading(true)
+
+        val result = interactor.burnSecret(metadataKey)
+        when (result) {
+            is Result.Success -> viewState.onBurnSecretSuccess()
+            is Result.Error -> {
+                result.exception.log()
+                viewState.onError(result.exception.message)
+            }
+        }
+
+        viewState.showLoading(false)
     }
 
 }

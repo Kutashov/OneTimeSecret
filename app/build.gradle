@@ -57,7 +57,7 @@ dependencies {
     implementation "com.arello-mobile:moxy-app-compat:$moxy_version"
     kapt "com.arello-mobile:moxy-compiler:$moxy_version"
     testImplementation "org.koin:koin-test:$koin_version"
-    testImplementation "io.mockk:mockk:1.7.8"
+    testImplementation "io.mockk:mockk:1.8.6"
     testImplementation 'junit:junit:4.12'
     testImplementation "org.robolectric:robolectric:3.8"
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
