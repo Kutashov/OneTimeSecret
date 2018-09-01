@@ -28,7 +28,7 @@ android:
     - tools # to install Android SDK tools
     - platform-tools
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
-    - android-$ANDROID_EMULATOR
+#    - android-$ANDROID_EMULATOR
     - android-$ANDROID_COMPILE
     - sys-img-armeabi-v7a-google_apis-21
     - extra-google-m2repository
@@ -44,17 +44,19 @@ android:
 
 before_install:
   - chmod +x gradlew
-before_script:
-  - echo no | android create avd --force -n test -t android-$ANDROID_EMULATOR --abi google_apis/$ANDROID_ABI
-  - emulator -avd test -no-skin -no-window -qemu -m 512 &
+#comment out this, when UI test will be relevant
+#before_script:
+#  - echo no | android create avd --force -n test -t android-$ANDROID_EMULATOR --abi google_apis/$ANDROID_ABI
+#  - emulator -avd test -no-skin -no-window -qemu -m 512 &
 script:
   - ./gradlew build
-  - android-wait-for-emulator
-  - adb shell settings put global window_animation_scale 0 &
-  - adb shell settings put global transition_animation_scale 0 &
-  - adb shell settings put global animator_duration_scale 0 &
-  - adb shell input keyevent 82 &
-  - ./gradlew connectedCheck
+#comment out this, when UI test will be relevant
+#  - android-wait-for-emulator
+#  - adb shell settings put global window_animation_scale 0 &
+#  - adb shell settings put global transition_animation_scale 0 &
+#  - adb shell settings put global animator_duration_scale 0 &
+#  - adb shell input keyevent 82 &
+#  - ./gradlew connectedCheck
 after_success:
   - ./gradlew jacocoTestReport coveralls
 notifications:
