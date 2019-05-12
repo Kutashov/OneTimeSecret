@@ -1,5 +1,5 @@
 local.properties
-.idea/
+.idea
 
 # Gradle
 .gradle
