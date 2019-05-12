@@ -1,7 +1,8 @@
 package ru.alexandrkutashov.onetimesecret.presentation.metadata
 
 import com.arellomobile.mvp.InjectViewState
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.standalone.inject
 import org.koin.standalone.releaseContext
 import ru.alexandrkutashov.onetimesecret.domain.MetadataInteractor
@@ -21,7 +22,7 @@ class MetadataPresenter : AppPresenter<MetadataView>() {
 
     private val interactor by inject<MetadataInteractor>()
 
-    fun getSecretMetadata(metadataKey: String?) = launch(executors.uiContext) {
+    fun getSecretMetadata(metadataKey: String?) =  GlobalScope.launch(executors.uiContext) {
 
         viewState.showLoading(true)
 
@@ -45,7 +46,7 @@ class MetadataPresenter : AppPresenter<MetadataView>() {
         releaseContext(METADATA)
     }
 
-    fun burnSecret(metadataKey: String?) = launch(executors.uiContext) {
+    fun burnSecret(metadataKey: String?) = GlobalScope.launch(executors.uiContext) {
         viewState.showLoading(true)
 
         val result = interactor.burnSecret(metadataKey)

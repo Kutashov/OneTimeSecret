@@ -1,7 +1,8 @@
 package ru.alexandrkutashov.onetimesecret.presentation.share
 
 import com.arellomobile.mvp.InjectViewState
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.standalone.inject
 import org.koin.standalone.releaseContext
 import ru.alexandrkutashov.onetimesecret.R
@@ -24,7 +25,7 @@ class SharePresenter : AppPresenter<ShareView>() {
 
     private val interactor by inject<ShareInteractor>()
 
-    fun shareSecret(secret: String, passphrase: String? = null) = launch(executors.uiContext) {
+    fun shareSecret(secret: String, passphrase: String? = null) = GlobalScope.launch(executors.uiContext) {
 
         if (secret.isEmpty()) {
             viewState.onShareError(resourceManager.getString(R.string.empty_secret))

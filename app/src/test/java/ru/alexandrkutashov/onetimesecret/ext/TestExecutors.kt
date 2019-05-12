@@ -1,7 +1,7 @@
 package ru.alexandrkutashov.onetimesecret.ext
 
-import kotlinx.coroutines.experimental.Unconfined
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 
 /**
  * @author Alexandr Kutashov
@@ -10,8 +10,8 @@ import kotlin.coroutines.experimental.CoroutineContext
 
 class TestExecutors : Executors {
     override val networkContext: CoroutineContext
-        get() = Unconfined
+        get() = Dispatchers.Unconfined
 
     override val uiContext: CoroutineContext
-        get() = Unconfined
+        get() = Dispatchers.Unconfined
 }

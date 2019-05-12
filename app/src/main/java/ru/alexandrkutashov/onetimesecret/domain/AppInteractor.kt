@@ -1,8 +1,6 @@
 package ru.alexandrkutashov.onetimesecret.domain
 
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.*
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 import ru.alexandrkutashov.onetimesecret.data.repository.OneTimeSecret
@@ -15,23 +13,18 @@ import ru.alexandrkutashov.onetimesecret.ext.Executors
 open class AppInteractor : KoinComponent {
 
     private val executors by inject<Executors>()
-    private val jobs by inject<MutableList<Job>>()
+    private val job by inject<Job>()
 
     protected val api by inject<OneTimeSecret>()
 
     protected suspend fun <T> executeAsync(block: suspend CoroutineScope.() -> T): T =
-            async(executors.networkContext, block = block).let { job ->
-                jobs.add(job)
-                job.invokeOnCompletion(onCancelling = true, invokeImmediately = false) {
-                    jobs.remove(job)
-                }
-                job.await()
-            }
+        CoroutineScope(job).async(executors.networkContext, block = block).let { job ->
+            job.await()
+        }
 
     fun cancelJobs() {
-        jobs.toTypedArray().forEach {
-            it.cancel()
-        }
+        job.children.count()
+        job.cancel()
     }
 }
 

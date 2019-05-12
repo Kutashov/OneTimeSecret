@@ -1,7 +1,8 @@
 package ru.alexandrkutashov.onetimesecret.presentation.read
 
 import com.arellomobile.mvp.InjectViewState
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.standalone.inject
 import org.koin.standalone.releaseContext
 import ru.alexandrkutashov.onetimesecret.domain.ReadInteractor
@@ -23,7 +24,7 @@ class ReadPresenter : AppPresenter<ReadView>() {
 
     private val interactor by inject<ReadInteractor>()
 
-    fun readSecret(link: String, passphrase: String? = null) = launch(executors.uiContext) {
+    fun readSecret(link: String, passphrase: String? = null) =  GlobalScope.launch(executors.uiContext) {
 
         viewState.showLoading(true)
 

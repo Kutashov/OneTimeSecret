@@ -1,6 +1,6 @@
 package ru.alexandrkutashov.onetimesecret.domain
 
-import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.Job
 import org.koin.dsl.module.Module
 import org.koin.dsl.module.applicationContext
 
@@ -11,6 +11,6 @@ import org.koin.dsl.module.applicationContext
 class DomainModule : Module {
 
     override fun invoke() = applicationContext {
-        factory { mutableListOf<Job>() }
+        factory { Job() }
     }.invoke()
 }

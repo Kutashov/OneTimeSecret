@@ -49,9 +49,9 @@ class ReadFragment : AppFragment(), ReadView {
 
         secret = view.findViewById(R.id.secret_text)
         readBtn = view.findViewById(R.id.read_button)
-        readBtn.setOnClickListener({
+        readBtn.setOnClickListener {
             secretLink?.let { presenter.readSecret(it) }
-        })
+        }
 
         return view
     }

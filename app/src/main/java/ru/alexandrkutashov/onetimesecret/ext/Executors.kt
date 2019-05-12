@@ -1,8 +1,7 @@
 package ru.alexandrkutashov.onetimesecret.ext
 
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.android.UI
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 
 /**
  * @author Alexandr Kutashov
@@ -16,8 +15,8 @@ interface Executors {
 
 class ExecutorsImpl : Executors {
     override val networkContext: CoroutineContext
-        get() = CommonPool
+        get() = Dispatchers.IO
 
     override val uiContext: CoroutineContext
-        get() = UI
+        get() = Dispatchers.Main
 }

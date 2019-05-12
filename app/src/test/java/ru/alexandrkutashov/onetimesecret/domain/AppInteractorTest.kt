@@ -1,8 +1,8 @@
 package ru.alexandrkutashov.onetimesecret.domain
 
 import org.junit.Assert.assertEquals
-import kotlinx.coroutines.experimental.*
-import kotlinx.coroutines.experimental.sync.Mutex
+import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -22,7 +22,7 @@ import ru.alexandrkutashov.onetimesecret.ext.Executors
 class AppInteractorTest: KoinTest {
 
     private lateinit var interactor: TestInteractor
-    private val jobs by inject<MutableList<Job>>()
+    private val job by inject<Job>()
     private val executors by inject<Executors>()
 
     @Before
@@ -45,10 +45,12 @@ class AppInteractorTest: KoinTest {
                 job2.lock()
             }
         }
-        assertEquals(2, jobs.size)
+        assertEquals(2, job.children.count())
 
         job2.unlock()
-        assertEquals(1, jobs.size)
+        assertEquals(1, job.children.count())
+
+        job1.unlock()
     }
 
     @Test
@@ -67,7 +69,7 @@ class AppInteractorTest: KoinTest {
         }
 
         interactor.cancelJobs()
-        assertEquals(0, jobs.size)
+        assertEquals(0, job.children.count())
     }
 
     @After
