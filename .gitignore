@@ -3,6 +3,5 @@ local.properties
 
 # Gradle
 .gradle
-gradle
 *.iml
 build
