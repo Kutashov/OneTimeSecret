@@ -1,6 +1,9 @@
 local.properties
-.idea
+.idea/
 
 # Gradle
 .gradle
+gradle
+gradlew*
+*.iml
 build
