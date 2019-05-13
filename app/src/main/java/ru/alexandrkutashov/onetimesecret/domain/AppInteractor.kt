@@ -1,6 +1,8 @@
 package ru.alexandrkutashov.onetimesecret.domain
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.withContext
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 import ru.alexandrkutashov.onetimesecret.data.repository.OneTimeSecret
@@ -18,9 +20,10 @@ open class AppInteractor : KoinComponent {
     protected val api by inject<OneTimeSecret>()
 
     protected suspend fun <T> executeAsync(block: suspend CoroutineScope.() -> T): T =
-        CoroutineScope(job).async(executors.networkContext, block = block).let { job ->
-            job.await()
-        }
+        withContext(
+            CoroutineScope(job).coroutineContext + executors.networkContext,
+            block = block
+        )
 
     fun cancelJobs() {
         job.children.count()

@@ -43,7 +43,8 @@ private fun Long.secondsToInHoursString(resourceManager: Resources): String? {
 private fun Long.secondsToInMinutesString(resourceManager: Resources): String? {
     val minutes = TimeUnit.SECONDS.toMinutes(this).toInt() + 1
     return when (minutes) {
-        in 1..Int.MAX_VALUE -> return format(resourceManager.getQuantityString(R.plurals.in_time_minutes, minutes), minutes)
+        in 1..Int.MAX_VALUE ->
+            return format(resourceManager.getQuantityString(R.plurals.in_time_minutes, minutes), minutes)
         else -> null
     }
 }

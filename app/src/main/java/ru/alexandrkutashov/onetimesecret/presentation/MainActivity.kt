@@ -22,9 +22,10 @@ import ru.alexandrkutashov.onetimesecret.presentation.share.ShareFragment
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.SupportFragmentNavigator
-import ru.terrakok.cicerone.commands.*
 import android.app.Activity
 import android.view.inputmethod.InputMethodManager
+import ru.terrakok.cicerone.commands.*
+import java.lang.IllegalStateException
 
 
 /**
@@ -131,7 +132,7 @@ class MainActivity : AppCompatActivity(), LoadingHandler, KeyboardHandler, FabHa
             ShareFragment.screenKey -> ShareFragment.newInstance(data as String?)
             ReadFragment.screenKey -> ReadFragment.newInstance(data as String)
             MetadataFragment.screenKey -> MetadataFragment.newInstance(data as String)
-            else -> throw RuntimeException("Unknown screen key!")
+            else -> throw IllegalStateException("Unknown screen key!")
         }
 
         override fun exit() {

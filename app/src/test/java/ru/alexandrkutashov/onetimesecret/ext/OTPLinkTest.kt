@@ -17,7 +17,7 @@ import org.robolectric.RuntimeEnvironment
  */
 @Suppress("DEPRECATION")
 @RunWith(RobolectricTestRunner::class)
-class LinksTest {
+class OTPLinkTest {
 
     companion object {
         private val URL = "https://onetimesecret.com"
