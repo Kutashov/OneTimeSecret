@@ -31,12 +31,6 @@ android {
     }
 }
 
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
-
 configurations.all {
     resolutionStrategy.force "com.android.support:support-annotations:$support_version"
 }
@@ -61,7 +55,7 @@ dependencies {
     testImplementation "org.koin:koin-test:$koin_version"
     testImplementation "io.mockk:mockk:1.9"
     testImplementation 'junit:junit:4.12'
-    testImplementation "org.robolectric:robolectric:3.8"
+    testImplementation "org.robolectric:robolectric:4.2.1"
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

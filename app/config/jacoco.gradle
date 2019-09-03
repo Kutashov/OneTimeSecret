@@ -32,7 +32,7 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testDebugUnitTest") {
             '**/OTSApp.*'
     ]
     // generated classes
-    classDirectories = fileTree(
+    classDirectories.from = fileTree(
             dir: "$buildDir/intermediates/classes/debug",
             excludes: excludes
     ) + fileTree(
@@ -41,9 +41,9 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testDebugUnitTest") {
     )
 
     // sources
-    sourceDirectories = files([
+    sourceDirectories.from = files([
             android.sourceSets.main.java.srcDirs,
             "src/main/kotlin"
     ])
-    executionData = files("$buildDir/jacoco/testDebugUnitTest.exec")
+    executionData.from = files("$buildDir/jacoco/testDebugUnitTest.exec")
 }
