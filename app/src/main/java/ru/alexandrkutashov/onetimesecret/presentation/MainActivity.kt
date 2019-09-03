@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), LoadingHandler, KeyboardHandler, FabHa
         }
 
         if (intent.data != null) {
-            router.newRootScreen(ReadFragment.screenKey, intent.data.toString())
+            router.newRootScreen(ReadFragment.screenKey, intent.data!!.toString())
         } else {
             router.newRootScreen(ShareFragment.screenKey, intent.getStringExtra(Intent.EXTRA_TEXT))
         }
@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity(), LoadingHandler, KeyboardHandler, FabHa
 
     override fun showKeyboard() {
         val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        @Suppress("DEPRECATION")
         imm.showSoftInputFromInputMethod(toolbar.windowToken, 0)
     }
 
@@ -75,11 +76,11 @@ class MainActivity : AppCompatActivity(), LoadingHandler, KeyboardHandler, FabHa
     }
 
     override fun showFab() {
-        fab.visibility = View.VISIBLE
+        fab.show()
     }
 
     override fun hideFab() {
-        fab.visibility = View.GONE
+        fab.hide()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

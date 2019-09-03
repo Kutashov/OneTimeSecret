@@ -40,7 +40,7 @@ class ReadFragment : AppFragment(), ReadView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        secretLink = arguments.getString(SECRET_LINK)
+        secretLink = arguments?.getString(SECRET_LINK)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

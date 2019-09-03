@@ -46,15 +46,15 @@ class ShareFragment : AppFragment(), ShareView {
         val view = inflater.inflate(R.layout.fragment_share, container, false)
 
         secretText = view.findViewById(R.id.secret_text)
-        if (arguments != null && arguments.containsKey(TEXT_TO_SHARE)) {
-            secretText.append(arguments.getString(TEXT_TO_SHARE))
+        if (arguments?.containsKey(TEXT_TO_SHARE) == true) {
+            secretText.append(arguments?.getString(TEXT_TO_SHARE))
         }
 
         view.findViewById<Button>(R.id.share_button)
-                .setOnClickListener({
+                .setOnClickListener {
                     hideKeyboard()
                     presenter.shareSecret(secretText.text.toString())
-                })
+                }
 
         return view
     }
@@ -67,7 +67,7 @@ class ShareFragment : AppFragment(), ShareView {
 
     override fun onShareSuccess(link: String?, metadataKey: String?) {
         link?.let {
-            copyLink(context, it)
+            copyLink(requireContext(), it)
             router.showSystemMessage(getString(R.string.link_copied))
         }
         router.newRootScreen(MetadataFragment.screenKey, metadataKey)

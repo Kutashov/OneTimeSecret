@@ -46,7 +46,7 @@ class MetadataFragment : AppFragment(), MetadataView, FabListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter.getSecretMetadata(arguments.getString(METADATA_KEY))
+        presenter.getSecretMetadata(arguments?.getString(METADATA_KEY))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -58,11 +58,11 @@ class MetadataFragment : AppFragment(), MetadataView, FabListener {
         timeLeft = view.findViewById(R.id.time_left)
 
         view.findViewById<Button>(R.id.burn_secret_btn).setOnClickListener {
-            AlertDialog.Builder(activity)
+            AlertDialog.Builder(requireContext())
                     .setTitle(R.string.burn_dialog_title)
                     .setMessage(R.string.burn_dialog_message)
                     .setPositiveButton(android.R.string.yes) { _, _ ->
-                        presenter.burnSecret(arguments.getString(METADATA_KEY))
+                        presenter.burnSecret(arguments?.getString(METADATA_KEY))
                     }
                     .setNegativeButton(android.R.string.no) { dialog, _ -> dialog.dismiss() }
                     .create().show()
@@ -101,8 +101,8 @@ class MetadataFragment : AppFragment(), MetadataView, FabListener {
 
     override fun onClick(view: View) {
         val link = link.text
-        if (!link.isNullOrBlank()) {
-            copyLink(context, link.toString())
+        if (link.isNotEmpty()) {
+            copyLink(requireContext(), link.toString())
             router.showSystemMessage(getString(R.string.link_copied))
         }
     }

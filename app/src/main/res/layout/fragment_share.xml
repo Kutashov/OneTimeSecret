@@ -24,6 +24,7 @@
         android:hint="@string/share_secret_hint"
         android:inputType="text"
         android:padding="@dimen/app_padding"
-        android:textSize="@dimen/secret_field_text_size" />
+        android:textSize="@dimen/secret_field_text_size"
+        android:importantForAutofill="no" />
 
 </RelativeLayout>

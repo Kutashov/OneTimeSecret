@@ -7,11 +7,11 @@ apply from: 'config/jacoco.gradle'
 apply from: 'config/coveralls.gradle'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         applicationId "ru.alexandrkutashov.onetimesecret"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -27,7 +27,7 @@ android {
     }
 
     lintOptions {
-        abortOnError false
+        abortOnError true
     }
 }
 
