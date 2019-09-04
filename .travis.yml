@@ -15,7 +15,7 @@ cache:
 env:
   global:
    - ANDROID_BUILD_TOOLS_VERSION=28.0.3
-   - ANDROID_COMPILE=26
+   - ANDROID_COMPILE=28
    - ADB_INSTALL_TIMEOUT=15 # minutes (2 minutes by default)
    - GRADLE_OPTS="-Xmx1024m"
   matrix:
